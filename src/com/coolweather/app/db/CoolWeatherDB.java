@@ -27,7 +27,7 @@ public class CoolWeatherDB {
 	//获取CoolWeather实例
 	private static CoolWeatherDB coolWeatherDB;
 	public synchronized static CoolWeatherDB getInstance(Context context) {
-		if (coolWeatherDB != null) {
+		if (coolWeatherDB == null) {
 			coolWeatherDB = new CoolWeatherDB(context);
 		}
 		return coolWeatherDB;
@@ -70,7 +70,7 @@ public class CoolWeatherDB {
 			ContentValues values = new ContentValues();
 			values.put("city_name", city.getCityName());
 			values.put("city_code", city.getCityCode());
-			values.put("city_id", city.getProvinceId());
+			values.put("province_id", city.getProvinceId());
 			db.insert("City", null, values);
 		}
 	}
@@ -109,7 +109,7 @@ public class CoolWeatherDB {
 	/**
 	 * 从数据库读取County的数据
 	 */
-	public List<County> loadCounty(int cityId) {
+	public List<County> loadCounties(int cityId) {
 		List<County> list = new ArrayList<County>();
 		Cursor cursor = db.query("County", null, "city_id=?",
 				new String[]{String.valueOf(cityId)}, null, null, null);
