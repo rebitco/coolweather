@@ -116,12 +116,12 @@ public class CoolWeatherDB {
 		if (cursor.moveToFirst()) {
 			do {
 				County county = new County();
-				county.setCityId(cursor.getInt(cursor.getColumnIndex("id")));
+				county.setId(cursor.getInt(cursor.getColumnIndex("id")));
 				county.setCountyName(cursor.getString(cursor.getColumnIndex("county_name")));
 				county.setCountyCode(cursor.getString(cursor.getColumnIndex("county_code")));
 				county.setCityId(cityId);
 				list.add(county);
-			} while (cursor.moveToFirst());
+			} while (cursor.moveToNext());
 		}
 		return list;
 	}
