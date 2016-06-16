@@ -24,6 +24,9 @@ public class HttpUtil {
 					connection.setRequestMethod("GET");
 					connection.setReadTimeout(8000);
 					connection.setConnectTimeout(8000);
+					//填入APIKEY
+					connection.setRequestProperty("apikey", "9ce7b243472b65539c3f741ef1b709db");
+//					connection.connect();
 					InputStream in = connection.getInputStream();
 					//字节流转换为字符流 reader方便一行一行的读取 
 					BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
