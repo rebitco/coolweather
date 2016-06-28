@@ -24,6 +24,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,13 +65,18 @@ public class ChooseAreaActivity extends Activity {
 	 * 当前选中的级别
 	 */
 	private int currentLevel;
+	/**
+	 * 是否从weatherActivity中跳转过来
+	 */
+	public boolean isFromWeatherActivity;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
 		SharedPreferences preferences =
 				PreferenceManager.getDefaultSharedPreferences(this);
-		if(preferences.getBoolean("selected_city", false)) {
+		if(preferences.getBoolean("city_selected", false) && !isFromWeatherActivity) {
 			Intent intent = new Intent(this, WeatherActivity.class);
 			startActivity(intent);
 			finish();
@@ -106,6 +112,13 @@ public class ChooseAreaActivity extends Activity {
 			}
 		});
 		queryProvinces();
+	}
+	
+	/**
+	 * 左上角返回图标点击事件
+	 */
+	public void returnBtn(View v) {
+		onBackPressed();
 	}
 	
 	/**
@@ -254,6 +267,10 @@ public class ChooseAreaActivity extends Activity {
 		} else if(currentLevel == LEVEL_CITY){
 			queryProvinces();
 		} else {
+			if (isFromWeatherActivity) {
+				Intent intent = new Intent(this, WeatherActivity.class);
+				startActivity(intent);
+			}
 			finish();
 		}
 	}

@@ -33,6 +33,7 @@ public class Utility {
 					province.setProvinceCode(array[0]);
 					//省份名位于array第二个位置
 					province.setProvinceName(array[1]);
+					//将解析出来的数据储存到Province表
 					coolWeatherDB.saveProvince(province);
 				}
 				return true;
