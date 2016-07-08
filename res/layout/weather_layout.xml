@@ -12,15 +12,15 @@
         <ImageView 
             android:onClick="setting"
             android:src="@drawable/setting"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"/>	
         <Button 
             android:id="@+id/refresh"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@drawable/refresh"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

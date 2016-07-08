@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,6 +50,10 @@ public class WeatherActivity extends Activity implements OnClickListener {
 	 * 用于显示当前日期信息
 	 */
 	private TextView currentDateText;
+	/**
+	 * 设置按钮
+	 */
+	private ImageView setting;
 	/**
 	 * 用于切换城市按钮
 	 */
@@ -84,7 +89,6 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		 * 设置天气背景图
 		 */
 		weatherView = (RelativeLayout) findViewById(R.id.weather_view);
-		
 		weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
 		cityNameText = (TextView) findViewById(R.id.city_name);
 		publishText = (TextView) findViewById(R.id.publish_text);
@@ -112,11 +116,10 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		refreshWeather.setOnClickListener(this);
 	}
 	
-	/**
-	 * 点击设置按钮,跳转到设置页面
-	 */
+	//点击设置图标
 	public void setting(View v){
-		
+		Intent intent2 = new Intent(getApplicationContext(), SettingActivity.class);
+		startActivity(intent2);
 	}
 	
 	public void onClick(View v) {
@@ -136,7 +139,6 @@ public class WeatherActivity extends Activity implements OnClickListener {
 				queryWeatherInfo(weatherCode);
 			}
 			break;
-
 		default:
 			break;
 		}
