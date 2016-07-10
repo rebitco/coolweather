@@ -90,6 +90,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		 */
 		weatherView = (RelativeLayout) findViewById(R.id.weather_view);
 		weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
+		
 		cityNameText = (TextView) findViewById(R.id.city_name);
 		publishText = (TextView) findViewById(R.id.publish_text);
 		weatherDespText = (TextView) findViewById(R.id.weather_desp);

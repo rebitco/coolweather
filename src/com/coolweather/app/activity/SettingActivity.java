@@ -4,14 +4,22 @@ import com.coolweather.app.R;
 import com.coolweather.app.receiver.AutoBootReceiver;
 import com.coolweather.app.receiver.AutoUpdateReceiver;
 import com.coolweather.app.service.AutoUpdateService;
+import com.coolweather.app.util.DialogUtil;
 import com.coolweather.app.util.VersionUtil;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -47,17 +55,44 @@ public class SettingActivity extends Activity {
 		//显示版本号
 		String versionName = VersionUtil.getVersionName(this);
 		version.setText(versionName);
-		
 		//开机自启
 		autoSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				SharedPreferences.Editor editor = 
+						PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
 				if (isChecked) {
-					System.out.println("已按下开关...");
+					editor.putBoolean("isOpen", isChecked);
 				} else {
-					System.out.println("已关掉开关...");
+					editor.putBoolean("isOpen", isChecked);
 				}
+				editor.commit();
+			}
+		});
+		//一旦启动设置页面, 改变开关的UI
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean isOpen = preferences.getBoolean("isOpen", true);
+		autoSwitch.setChecked(isOpen);
+		
+		//弹窗关于
+		about_cool.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				DialogUtil.show(SettingActivity.this,
+							"About CoolWeather", 
+							"        酷天气, 是基于郭大神的书籍-<<第一行代码>>里面的项目案例敲出来的, " +
+							"地区接口依然使用中国天气网的, 而天气接口改用了百度API的. 基本上实现了切换地区" +
+							"查询实时天气的功能, 后台自启动更新天气数据, 还有一些背景美化等...", 
+							true);
+			}
+		});
+		
+		//检查新版本
+		check_vesion.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(SettingActivity.this, "当前版本是最新版", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
